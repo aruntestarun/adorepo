@@ -31,29 +31,29 @@ stages:
   - job: 'PublishArtifact'
     pool: server
     dependsOn: 'Build'
-    # steps:
-    # - task: InvokeRESTAPI@1
-    #   inputs:
-    #     connectionType: 'connectedServiceName'
-    #     serviceConnection: 'nporlando1'
-    #     method: 'POST'
-    #     body: |
-    #       {
-    #         "artifacts":[
-    #             {
-    #               "name":"_snowdevops.spring-boot-webapp",
-    #               "version":"1.$(build.buildId)",
-    #               "semanticVersion":"1.$(build.buildId).0",
-    #               "repositoryName":"snowdevops.spring-boot-webapp"
-    #             }
-    #         ],
-    #         "pipelineName":"$(system.teamProject)/$(build.definitionName)",
-    #         "taskExecutionNumber":"$(build.buildId)",
-    #         "stageName":"$(system.jobDisplayName)",
-    #         "branchName": "$(build.sourceBranchName)"
-    #       }
-    #     urlSuffix: '/artifact/registration?orchestrationToolId=9768069a1b78201001f9520d0a4bcb27'
-    #     waitForCompletion: 'false'
+    steps:
+    - task: InvokeRESTAPI@1
+      inputs:
+        connectionType: 'connectedServiceName'
+        serviceConnection: 'DevOps connection'
+        method: 'POST'
+        body: |
+          {
+            "artifacts":[
+                {
+                  "name":"_snowdevops.spring-boot-webapp",
+                  "version":"1.$(build.buildId)",
+                  "semanticVersion":"1.$(build.buildId).0",
+                  "repositoryName":"snowdevops.spring-boot-webapp"
+                }
+            ],
+            "pipelineName":"$(system.teamProject)/$(build.definitionName)",
+            "taskExecutionNumber":"$(build.buildId)",
+            "stageName":"$(system.jobDisplayName)",
+            "branchName": "$(build.sourceBranchName)"
+          }
+        urlSuffix: '/artifact/registration?orchestrationToolId=a860b407db78ec1096635a75dc961989'
+        waitForCompletion: 'false'
 
 - stage: TestAndPackage
   dependsOn: 'BuildAndPublish'
