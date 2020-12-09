@@ -31,29 +31,29 @@ stages:
   - job: 'PublishArtifact'
     pool: server
     dependsOn: 'Build'
-#     steps:
-#     - task: InvokeRESTAPI@1
-#       inputs:
-#         connectionType: 'connectedServiceName'
-#         serviceConnection: 'genericarunparisrapdev3'
-#         method: 'POST'
-#         body: |
-#           {
-#             "artifacts":[
-#                 {
-#                   "name":"_snowdevops.spring-boot-webapp",
-#                   "version":"1.$(build.buildId)",
-#                   "semanticVersion":"1.$(build.buildId).0",
-#                   "repositoryName":"snowdevops.spring-boot-webapp"
-#                 }
-#             ],
-#             "pipelineName":"$(system.teamProject)/$(build.definitionName)",
-#             "taskExecutionNumber":"$(build.buildId)",
-#             "stageName":"$(system.jobDisplayName)",
-#             "branchName": "$(build.sourceBranchName)"
-#           }
-#         urlSuffix: '/artifact/registration?orchestrationToolId=1f34abd4db05e0106b73d984da961966'
-#         waitForCompletion: 'false'
+    steps:
+    - task: InvokeRESTAPI@1
+      inputs:
+        connectionType: 'connectedServiceName'
+        serviceConnection: 'genericarunparisrapdev3'
+        method: 'POST'
+        body: |
+          {
+            "artifacts":[
+                {
+                  "name":"_snowdevops.spring-boot-webapp",
+                  "version":"1.$(build.buildId)",
+                  "semanticVersion":"1.$(build.buildId).0",
+                  "repositoryName":"snowdevops.spring-boot-webapp"
+                }
+            ],
+            "pipelineName":"$(system.teamProject)/$(build.definitionName)",
+            "taskExecutionNumber":"$(build.buildId)",
+            "stageName":"$(system.jobDisplayName)",
+            "branchName": "$(build.sourceBranchName)"
+          }
+        urlSuffix: '/artifact/registration?orchestrationToolId=1f34abd4db05e0106b73d984da961966'
+        waitForCompletion: 'false'
 
 - stage: TestAndPackage
   dependsOn: 'BuildAndPublish'
@@ -104,17 +104,17 @@ stages:
   jobs:
   - job: 'Deploy'
     pool : server
-    steps:
-    - task: InvokeRESTAPI@1
-      inputs:
-        connectionType: 'connectedServiceName'
-        serviceConnection: 'genericarunparisrapdev3'
-        method: 'POST'
-        body: |
-         {
-            "buildNumber": "$(build.buildId)",
-            "isMultiBranch": "true",
-            "branchName": "$(build.sourceBranchName)"
-         }
-        urlSuffix: '/orchestration/changeControl?toolId=1f34abd4db05e0106b73d984da961966&toolType=ado'
-        waitForCompletion: 'true'
+#     steps:
+#     - task: InvokeRESTAPI@1
+#       inputs:
+#         connectionType: 'connectedServiceName'
+#         serviceConnection: 'genericarunparisrapdev3'
+#         method: 'POST'
+#         body: |
+#          {
+#             "buildNumber": "$(build.buildId)",
+#             "isMultiBranch": "true",
+#             "branchName": "$(build.sourceBranchName)"
+#          }
+#         urlSuffix: '/orchestration/changeControl?toolId=1f34abd4db05e0106b73d984da961966&toolType=ado'
+#         waitForCompletion: 'true'
