@@ -104,17 +104,17 @@ stages:
   jobs:
   - job: 'Deploy'
     pool : server
-#     steps:
-#     - task: InvokeRESTAPI@1
-#       inputs:
-#         connectionType: 'connectedServiceName'
-#         serviceConnection: 'genericarunparisrapdev3'
-#         method: 'POST'
-#         body: |
-#          {
-#             "buildNumber": "$(build.buildId)",
-#             "isMultiBranch": "true",
-#             "branchName": "$(build.sourceBranchName)"
-#          }
-#         urlSuffix: '/orchestration/changeControl?toolId=1f34abd4db05e0106b73d984da961966&toolType=ado'
-#         waitForCompletion: 'true'
+    steps:
+    - task: InvokeRESTAPI@1
+      inputs:
+        connectionType: 'connectedServiceName'
+        serviceConnection: 'genericarunparisrapdev3'
+        method: 'POST'
+        body: |
+         {
+            "buildNumber": "$(build.buildId)",
+            "isMultiBranch": "true",
+            "branchName": "$(build.sourceBranchName)"
+         }
+        urlSuffix: '/orchestration/changeControl?toolId=1f34abd4db05e0106b73d984da961966&toolType=ado'
+        waitForCompletion: 'true'
