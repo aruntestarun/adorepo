@@ -52,7 +52,7 @@ stages:
             "stageName":"$(system.jobDisplayName)",
             "branchName": "$(build.sourceBranchName)"
           }
-        urlSuffix: '/artifact/registration?orchestrationToolId=1f34abd4db05e0106b73d984da961966'
+        urlSuffix: '/api/sn_devops/devops/artifact/registration?orchestrationToolId=1f34abd4db05e0106b73d984da961966'
         waitForCompletion: 'false'
 
 - stage: TestAndPackage
