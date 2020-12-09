@@ -35,7 +35,7 @@ stages:
 #     - task: InvokeRESTAPI@1
 #       inputs:
 #         connectionType: 'connectedServiceName'
-#         serviceConnection: 'devopsgenericdevopsarunor1'
+#         serviceConnection: 'genericarunparisrapdev3'
 #         method: 'POST'
 #         body: |
 #           {
@@ -52,7 +52,7 @@ stages:
 #             "stageName":"$(system.jobDisplayName)",
 #             "branchName": "$(build.sourceBranchName)"
 #           }
-#         urlSuffix: '/artifact/registration?orchestrationToolId=a860b407db78ec1096635a75dc961989'
+#         urlSuffix: '/artifact/registration?orchestrationToolId=1f34abd4db05e0106b73d984da961966'
 #         waitForCompletion: 'false'
 
 - stage: TestAndPackage
@@ -80,7 +80,7 @@ stages:
     #   - task: InvokeRESTAPI@1
     #     inputs:
     #       connectionType: 'connectedServiceName'
-    #       serviceConnection: 'nporlando1'
+    #       serviceConnection: 'genericarunparisrapdev3'
     #       method: 'POST'
     #       body: |
     #         {
@@ -96,7 +96,7 @@ stages:
     #           "stageName": "$(system.jobDisplayName)",
     #           "branchName": "$(build.sourceBranchName)"
     #         }
-    #       urlSuffix: '/package/registration?orchestrationToolId=9768069a1b78201001f9520d0a4bcb27'
+    #       urlSuffix: '/package/registration?orchestrationToolId=1f34abd4db05e0106b73d984da961966'
     #       waitForCompletion: 'false'
 
 - stage: Deploy
@@ -104,17 +104,17 @@ stages:
   jobs:
   - job: 'Deploy'
     pool : server
-    # steps:
-    # - task: InvokeRESTAPI@1
-    #   inputs:
-    #     connectionType: 'connectedServiceName'
-    #     serviceConnection: 'nporlando1'
-    #     method: 'POST'
-    #     body: |
-    #      {
-    #         "buildNumber": "$(build.buildId)",
-    #         "isMultiBranch": "true",
-    #         "branchName": "$(build.sourceBranchName)"
-    #      }
-    #     urlSuffix: '/orchestration/changeControl?toolId=9768069a1b78201001f9520d0a4bcb27&toolType=ado'
-    #     waitForCompletion: 'true'
+    steps:
+    - task: InvokeRESTAPI@1
+      inputs:
+        connectionType: 'connectedServiceName'
+        serviceConnection: 'genericarunparisrapdev3'
+        method: 'POST'
+        body: |
+         {
+            "buildNumber": "$(build.buildId)",
+            "isMultiBranch": "true",
+            "branchName": "$(build.sourceBranchName)"
+         }
+        urlSuffix: '/orchestration/changeControl?toolId=1f34abd4db05e0106b73d984da961966&toolType=ado'
+        waitForCompletion: 'true'
