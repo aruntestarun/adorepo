@@ -28,9 +28,9 @@ stages:
       inputs:
         pathToPublish: '/home/vsts/work/1/s/target/sentiment-analysis-web-0.0.1-SNAPSHOT.jar'
         artifactName: sentiment-analysis$(build.buildId).jar
-  - job: 'PublishArtifact'
-    pool: server
-    dependsOn: 'Build'
+#   - job: 'PublishArtifact'
+#     pool: server
+#     dependsOn: 'Build'
 #     steps:
 #     - task: InvokeRESTAPI@1
 #       inputs:
