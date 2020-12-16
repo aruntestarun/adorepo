@@ -64,7 +64,7 @@ stages:
       name: 'Test'
       displayName: 'Test'
       inputs:
-        goals: 'test'
+        goals: 'clean install test'
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         javaHomeOption: 'JDKVersion'
