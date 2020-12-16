@@ -74,7 +74,7 @@ stages:
         testResultsFiles: '**/target/surefire-reports/*.xml'
         testRunTitle: 'Test'
   - job: 'Package'
-    pool: server
+#     pool: server
     dependsOn: 'Test'
     steps:
       - task: PublishBuildArtifacts@1
